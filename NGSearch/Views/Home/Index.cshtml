@@ -1,0 +1,78 @@
+﻿@model NGSearch.Models.BothTable
+
+
+
+
+@{
+    List<string> listForDropBox = new List<string>();
+    listForDropBox.Add("duck");
+    listForDropBox.Add("elephant");
+    listForDropBox.Add("lion");
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/StyleSheet1.css" rel="stylesheet" type="text/css" />
+    <title></title>
+</head>
+<body>
+    <header>
+        <div class="overlay"></div>
+        <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+            <source src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" type="video/mp4">
+        </video>
+        <div class="container h-100">
+            <div class="d-flex text-center h-100">
+                <div class="my-auto w-100 text-white">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            @using (Html.BeginForm("Import", "Home", FormMethod.Get))
+                            {
+                                <input type="text" name="importName" autocomplete="off"/>
+                                <input type="submit" class="btn-danger"  value="import and display"/>
+                            }
+                        </div>
+                        <div class="col-sm-6">
+                            @using (Html.BeginForm("Search", "Home", FormMethod.Post))
+                            {
+                                @Html.DropDownList("SearchText", new List<SelectListItem>
+                                 { new SelectListItem { Text = "duck", Value = "duck", Selected=true},
+                                   new SelectListItem { Text = "elphant", Value = "elphant"},
+                                   new SelectListItem { Text = "lion", Value = "lion"}
+                                   });
+                                <input type="submit" class="btn-success" value="Search"/>
+
+                            }
+
+
+                        </div>
+</div>
+                    </div>
+                </div>
+            </div>
+        
+    </header>
+    <div class="row">
+        <div class="col-sm-6">
+            <ul class="list-group">
+                @foreach (var item in Model.words)
+                {
+                    <li class="list-group-item">@item.Name</li>
+                }
+            </ul>
+        </div>
+        <div class="col-sm-6">
+            <ul class="list-group">
+                @foreach (var item in Model.wordCount)
+                {
+                <li class="list-group-item">@item.Name @item.Count</li>       
+                }
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
